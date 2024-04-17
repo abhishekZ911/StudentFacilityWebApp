@@ -1,0 +1,170 @@
+
+
+/* body::-webkit-scrollbar{
+  display: none 
+} */
+ 
+
+.navbar-wrapper{
+  width:100%;
+  height: 80px;
+  position: fixed;
+  overflow: hidden;
+  z-index: 4;
+  top: 0px;
+
+
+}
+.navbar {
+    display: flex;
+    
+    width: 100%;
+    justify-content: flex-end;
+    align-items: center;
+    height: 80px;
+    top: 0px;
+    
+    /* background-color: blue; */
+    z-index: 2;
+    transition: all 1s;
+  }
+  
+.logo-box{
+  position:absolute;
+  left: 20px;
+  overflow: visible !important;
+  z-index: 3;
+}
+  .menu-icon {
+    cursor: pointer;
+    z-index: 4;
+    padding-right: 2%;
+    z-index: 7;
+  }
+
+
+  
+  .navbar-logo {
+    padding-top: 0px;
+    top: 0px;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: all 1s;
+  }
+
+.logo-collapse{
+  width: 70px;
+  padding-bottom: 2%;
+}
+
+.logo-expand{
+  width: 100px;
+padding-top: 50%;
+padding-bottom : 0;
+}
+
+  .navbar-navigation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 70vw;
+    font-size: 0.9rem;
+    position: relative;
+    z-index: 5;
+  }
+  
+  /* .nav-item.hovered .nav-menu {
+    display: flex !important;
+  }
+   */
+  .nav-menu {
+    display: none;
+    position: fixed;
+    top: 50px;
+    width: auto;
+    background-color: aquamarine;
+    border-radius: 10px;
+    padding: 1%;
+  }
+  
+  .nav-menu.schoolActive, .nav-menu.admissionActive, .nav-menu.campusActive, .nav-menu.curriculumActive, .nav-menu.careerActive {
+    display: flex !important;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  
+  .nav-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .nav-menu li {
+    font-size: 0.8rem;
+    margin: 0 1% 1% 0;
+  }
+  
+  
+  
+  .nav-links {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+  
+  
+  .School:hover .nav-links,
+  .Admission:hover .nav-links,
+  .Campus:hover .nav-links,
+  .Curriculum:hover .nav-links,
+  .Careers:hover .nav-links,
+  .Contact-us:hover .nav-links {
+    background-color: lightgray;
+    border-radius: 5px;
+  }
+  
+  .ChevronDownIcon {
+    margin-left: 5px;
+  }
+  
+  .divider {
+    margin: 0.5rem 0;
+    border: none;
+    border-top: 1px solid lightgray;
+  }
+
+  .sidebar-wrapper{
+    position: fixed;
+    top: 0px;
+    overflow-y: auto;
+    left:0px;
+    height: 100vh;
+    background-color: #A2FF86;
+    z-index: 5;
+  }
+  .sidebar-nav{
+    overflow: hidden;
+    left: 2px;
+    margin-top: 80px;
+    z-index: 4;
+  }
+
+  .sidebar-toggled {
+    visibility: collapse;
+    width: auto !important;
+    /* z-index: 3; */
+  }
+
+  .sidebar-untoggled{
+    visibility: visible;
+  }
+
+  .increaseTextSize{
+    font-size: 200% !important;
+  }
+
+  .sidebarSubMenu{
+    font-size: x-large !important;
+  }

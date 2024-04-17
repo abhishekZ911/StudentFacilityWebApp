@@ -1,5 +1,8 @@
+
+
 .App {
   text-align: center;
+  box-sizing: border-box;
 }
 
 .App-logo {
@@ -35,4 +38,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+li{
+  list-style-type: none;
 }

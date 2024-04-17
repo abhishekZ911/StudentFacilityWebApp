@@ -1,0 +1,12 @@
+
+
+.scrollable-div{
+    height: 300px;
+    width: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+body{
+    box-sizing: border-box;
+}
