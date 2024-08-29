@@ -43,10 +43,11 @@ const ClubAdminLoginPage = () => {
     };
 
     const verifyAdmin = () =>{
-        const admins = selectedClub.admins;
+        
         const clubSel = clubList.find(club => club.id == selectedClub)
 
         setSelectedClub(clubSel)
+        const admins = selectedClub.admins;
         console.log(clubSel.admins.admin1.id)
         if (("user" + admissionNo) !== clubSel.admins.admin1.id && ("user" +  admissionNo) !== clubSel.admins.admin2.id) {
             alert('You are not authorized to access this club.');
@@ -54,7 +55,7 @@ const ClubAdminLoginPage = () => {
         } else {
             navigate('/clubAdminPage', {state : clubSel});
         }
-        clubSel = '';
+        
     }
     return (
         <Center height="100vh" backgroundColor='#213555'>

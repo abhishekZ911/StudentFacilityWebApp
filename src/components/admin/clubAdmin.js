@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { collection, addDoc, getDocs, deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { db } from '../config/firebase-config';
-import { Box, Input, Textarea, Button, Stack, Heading, Center, Text, UnorderedList, ListItem, Flex, IconButton } from '@chakra-ui/react';
+import { Box, Input, Textarea, Button, Stack, Divider, Heading, Center, Text, UnorderedList, ListItem, Flex, IconButton } from '@chakra-ui/react';
 import { DeleteIcon } from '@chakra-ui/icons';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -26,9 +26,7 @@ const ClubAdminPage = () => {
     useEffect(() => {
         // Fetch posts/events from Firestore
 
-        if (
-            !clubSel
-          ) {
+        if (!clubSel) {
             navigate("/login");
             return;
           }
@@ -78,10 +76,15 @@ const ClubAdminPage = () => {
 
     return (<>
     <Flex flexDir="column" padding={{base: '40% 2% 2% 2%', md: '15% 5% 5% 5%', xl: '15% 5% 5% 5%'}}  backgroundColor="#213555" >
+    <Text fontSize="2xl" as="b" color="#fff">
+                {clubSel.clubName}
+        </Text>
         <Center>
         <Text fontSize="2xl" as="b" color="#fff">
                 Welcome Club Admin !
         </Text>
+        
+        
         </Center>
         
         <Flex >

@@ -27,7 +27,7 @@ const StudentDashboard = () => {
     if (
       !studentDataFromLogin ||
       !studentDataFromLogin.identity ||
-      studentDataFromLogin.identity !== "student"
+      studentDataFromLogin.identity !== "student" 
     ) {
       navigate("/login");
       return;

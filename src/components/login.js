@@ -53,6 +53,7 @@ const LoginPage = () => {
 
 
   const studentCollectionRef = collection(db, "studentDetails");
+  const notApprovedstudentCollectionRef = collection(db, "notApprovedStudents")
   const alumniCollectionRef = collection(db, "alumni");
  
   
@@ -95,7 +96,7 @@ const LoginPage = () => {
         const doc = querySnapshot.docs[0];
         const data = { id: doc.id, ...doc.data() };
         console.log(data)
-        navigate('/studentDashboard', { state: data });
+        navigate('/studentDashboard', {state : data})
       } else {
         console.log('No matching student found');
         alert("The entered details is not for a student.")
@@ -182,6 +183,7 @@ const LoginPage = () => {
       await setDoc(docRef, 
         {
             identity: "student",
+            isApproved: false,
             name,
             email,
             admissionNo,

@@ -31,7 +31,6 @@ export const getDocuments = async (collectionRef) => {
     try {
       const deleteJobDoc = doc(db, collectionName, id);
       await deleteDoc(deleteJobDoc);
-      
     } catch (err) {
       console.error(err);
     }

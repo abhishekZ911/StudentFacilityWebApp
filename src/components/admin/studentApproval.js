@@ -64,8 +64,9 @@ const StudentsPage = () =>{
     width="100%"
     position="relative"
     >
-            <Heading size="md" mb="4">New Students Approval</Heading>
-
+      <Center>
+            <Heading size="md" mb="4" color="#fff">New Students Approval</Heading>
+            </Center>
         <Flex
         flexDir="column"
         align="center"
