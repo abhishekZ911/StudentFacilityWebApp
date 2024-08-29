@@ -40,7 +40,7 @@ const Footer = () => {
         />
       </Flex>
       <Text fontSize="sm">
-        © {new Date().getFullYear()} ABC Public School. All Rights Reserved.
+        © {new Date().getFullYear()} University. All Rights Reserved.
       </Text>
       <Text fontSize="sm" mt={2}>
         Address: 123 School Street, Ranchi, India

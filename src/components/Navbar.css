@@ -31,7 +31,7 @@
   
 .logo-box{
   position:absolute;
-  left: 20px;
+  left: 15px;
   overflow: visible !important;
   z-index: 3;
 }
@@ -48,7 +48,7 @@
     padding-top: 0px;
     top: 0px;
     color: white;
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-decoration: none;
     transition: all 1s;
   }
@@ -59,8 +59,8 @@
 }
 
 .logo-expand{
-  width: 100px;
-padding-top: 50%;
+  width: 200px;
+padding-top: 0%;
 padding-bottom : 0;
 }
 

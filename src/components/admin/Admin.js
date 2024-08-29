@@ -6,10 +6,15 @@ import { Link as RouterLink, Outlet } from "react-router-dom";
 import {
   FaFileDownload,
   FaUser,
-  FaEnvelope,
-  FaPhone,
-  FaMapMarker,
+  
 } from "react-icons/fa";
+import { GiOfficeChair } from "react-icons/gi";
+import { PiClub } from "react-icons/pi";
+import { FaCrosshairs } from "react-icons/fa6";
+
+
+
+
 import {
   Box,
   Card,
@@ -57,6 +62,7 @@ import { v4 } from "uuid";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getDocuments } from "../../FireBaseUtils/firebaseFunction";
+import { delay } from "framer-motion";
 
 const AdminPanel = () => {
 const auth = getAuth();
@@ -64,15 +70,15 @@ const auth = getAuth();
   const [newNews, setNewNews] = useState("");
   const [newNewsDate, setNewNewsDate] = useState();
   const [news, setNews] = useState("");
-  const [newTopperImage, setNewTopperImage] = useState(null);
+  const [newPlacedStudentImage, setNewPlacedStudentImage] = useState(null);
   const [imageList, setImageList] = useState([]);
-  const [newTopperName, setNewTopperName] = useState(null);
-  const [newTopperResult, setNewTopperResult] = useState(undefined);
+  const [newPlacedStudentName, setNewPlacedStudentName] = useState(null);
+  const [newPlacedStudentResult, setNewPlacedStudentResult] = useState(undefined);
 
-  const [newTopperImage12, setNewTopperImage12] = useState(null);
+  const [newPlacedStudentImage12, setNewPlacedStudentImage12] = useState(null);
   const [imageList12, setImageList12] = useState([]);
-  const [newTopperName12, setNewTopperName12] = useState(null);
-  const [newTopperResult12, setNewTopperResult12] = useState(undefined);
+  const [newPlacedStudentName12, setNewPlacedStudentName12] = useState(null);
+  const [newPlacedStudentResult12, setNewPlacedStudentResult12] = useState(undefined);
 
   const [newJob, setNewJob] = useState({
     jobRole: "",
@@ -118,7 +124,7 @@ const auth = getAuth();
   useEffect(() => {
     getNews();
     getImagesObject();
-    getImagesObject12();
+    // getImagesObject12();
     getEnquiryData();
     getJobApplications();
     getAllJobRoles();
@@ -126,7 +132,7 @@ const auth = getAuth();
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (!user || user.email == "admin@school.com") {
         setAuthUser(user);
         navigate("/admin");
       } else {
@@ -183,13 +189,13 @@ const auth = getAuth();
     }
   };
 
-  //Functions for New Topper Details Section
+  //Functions for New PlacedStudent Details Section
 
   const metadata = {
     contentType: "image/png",
   };
 
-  const imageCollection = collection(db, "class10TopperImages");
+  const imageCollection = collection(db, "class10PlacedStudentImages");
 
   const getImagesObject = async () => {
     try {
@@ -242,48 +248,48 @@ const auth = getAuth();
     }
   };
 
-  const imageCollection12 = collection(db, "class12TopperImages");
-  const getImagesObject12 = async () => {
-    try {
-      const data = await getDocs(imageCollection12);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-      }));
-      setImageList12(filteredData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const imageCollection12 = collection(db, "class12PlacedStudentImages");
+  // const getImagesObject12 = async () => {
+  //   try {
+  //     const data = await getDocs(imageCollection12);
+  //     const filteredData = data.docs.map((doc) => ({
+  //       ...doc.data(),
+  //     }));
+  //     setImageList12(filteredData);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
-  const addTopper = async () => {
+  const addPlacedStudent = async () => {
     if (
-      newTopperImage == null ||
-      newTopperName == null ||
-      newTopperResult == null
+      newPlacedStudentImage == null ||
+      newPlacedStudentName == null ||
+      newPlacedStudentResult == null
     ) {
       alert("Please fill all the details");
       return;
     }
     const uniqueImageId = v4();
-    const firestoreTopRef = doc(db, "class10TopperImages", uniqueImageId);
+    const firestoreTopRef = doc(db, "class10PlacedStudentImages", uniqueImageId);
     const imageRef = ref(storage, `class10/${uniqueImageId}`);
 
     try {
-      await uploadBytes(imageRef, newTopperImage, metadata).then((snapshot) =>
+      await uploadBytes(imageRef, newPlacedStudentImage, metadata).then((snapshot) =>
         console.log("uploaded")
       );
       const imageUrl = await getDownloadURL(imageRef);
 
       await setDoc(firestoreTopRef, {
-        name: newTopperName,
-        result: newTopperResult,
+        name: newPlacedStudentName,
+        result: newPlacedStudentResult,
         url: imageUrl,
         id: `${uniqueImageId}`,
       }).then(() => console.log("document added in firestore"));
 
-      setNewTopperImage("");
-      setNewTopperName("");
-      setNewTopperResult("");
+      setNewPlacedStudentImage("");
+      setNewPlacedStudentName("");
+      setNewPlacedStudentResult("");
       alert("Details Updated");
       getImagesObject();
     } catch (err) {
@@ -291,58 +297,58 @@ const auth = getAuth();
     }
   };
 
-  const addTopper12 = async () => {
-    if (
-      newTopperImage12 == null ||
-      newTopperName12 == null ||
-      newTopperResult12 == null
-    ) {
-      alert("Please fill all the details");
-      return;
-    }
-    const uniqueImageId12 = v4();
-    const firestoreTopRef12 = doc(db, "class12TopperImages", uniqueImageId12);
-    const imageRef12 = ref(storage, `class12/${uniqueImageId12}`);
+  // const addPlacedStudent12 = async () => {
+  //   if (
+  //     newPlacedStudentImage12 == null ||
+  //     newPlacedStudentName12 == null ||
+  //     newPlacedStudentResult12 == null
+  //   ) {
+  //     alert("Please fill all the details");
+  //     return;
+  //   }
+  //   const uniqueImageId12 = v4();
+  //   const firestoreTopRef12 = doc(db, "class12PlacedStudentImages", uniqueImageId12);
+  //   const imageRef12 = ref(storage, `class12/${uniqueImageId12}`);
 
+  //   try {
+  //     await uploadBytes(imageRef12, newPlacedStudentImage12, metadata).then(
+  //       (snapshot) => console.log("uploaded")
+  //     );
+  //     const imageUrl12 = await getDownloadURL(imageRef12);
+
+  //     await setDoc(firestoreTopRef12, {
+  //       name: newPlacedStudentName12,
+  //       result: newPlacedStudentResult12,
+  //       url: imageUrl12,
+  //       id: `${uniqueImageId12}`,
+  //     }).then(() => console.log("document added in firestore"));
+
+  //     setNewPlacedStudentImage12("");
+  //     setNewPlacedStudentName12("");
+  //     setNewPlacedStudentResult12("");
+  //     alert("Details Updated");
+  //     getImagesObject12();
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
+  const deletePlacedStudentFromFirestore = async (id) => {
     try {
-      await uploadBytes(imageRef12, newTopperImage12, metadata).then(
-        (snapshot) => console.log("uploaded")
-      );
-      const imageUrl12 = await getDownloadURL(imageRef12);
-
-      await setDoc(firestoreTopRef12, {
-        name: newTopperName12,
-        result: newTopperResult12,
-        url: imageUrl12,
-        id: `${uniqueImageId12}`,
-      }).then(() => console.log("document added in firestore"));
-
-      setNewTopperImage12("");
-      setNewTopperName12("");
-      setNewTopperResult12("");
-      alert("Details Updated");
-      getImagesObject12();
+      const deletePlacedStudentDoc = doc(db, "class10PlacedStudentImages", id);
+      await deleteDoc(deletePlacedStudentDoc);
     } catch (err) {
       console.error(err);
     }
   };
-
-  const deleteTopperFromFirestore = async (id) => {
-    try {
-      const deleteTopperDoc = doc(db, "class10TopperImages", id);
-      await deleteDoc(deleteTopperDoc);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const deleteTopper = async (id) => {
+  const deletePlacedStudent = async (id) => {
     const deleteRef = ref(storage, `class10/${id}`);
     console.log(id);
 
     deleteObject(deleteRef)
       .then(() => {
         alert("file deleted successfully");
-        deleteTopperFromFirestore(id);
+        deletePlacedStudentFromFirestore(id);
         getImagesObject();
       })
       .catch((err) => {
@@ -350,29 +356,29 @@ const auth = getAuth();
       });
   };
 
-  const deleteTopperFromFirestore12 = async (id) => {
-    try {
-      const deleteTopperDoc12 = doc(db, "class12TopperImages", id);
-      await deleteDoc(deleteTopperDoc12);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  // const deletePlacedStudentFromFirestore12 = async (id) => {
+  //   try {
+  //     const deletePlacedStudentDoc12 = doc(db, "class12PlacedStudentImages", id);
+  //     await deleteDoc(deletePlacedStudentDoc12);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
 
-  const deleteTopper12 = async (id) => {
-    const deleteRef12 = ref(storage, `class12/${id}`);
-    console.log(id);
+  // const deletePlacedStudent12 = async (id) => {
+  //   const deleteRef12 = ref(storage, `class12/${id}`);
+  //   console.log(id);
 
-    deleteObject(deleteRef12)
-      .then(() => {
-        alert("file deleted successfully");
-        deleteTopperFromFirestore12(id);
-        getImagesObject12();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  //   deleteObject(deleteRef12)
+  //     .then(() => {
+  //       alert("file deleted successfully");
+  //       deletePlacedStudentFromFirestore12(id);
+  //       getImagesObject12();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   const enquiryCollection = collection(db, "enquiryData");
 
@@ -488,7 +494,26 @@ const auth = getAuth();
                   </Box>
                   </RouterLink>
                   
+                  <RouterLink to="/admin/approveAlumni">
+                  <Box
+                    maxW="sm"
+                    borderWidth="1px"
+                    backgroundColor="#fff"
+                    borderRadius="lg"
+                    p="4"
+                    m="2"
+                  >
+                    <Flex alignItems="center" mb="2">
+                      <GiOfficeChair  size={20}/>
+
+                      <Text ml="2">New Alumni</Text>
+                    </Flex>
+                    Approve   Alumni
+                  </Box>
+                  </RouterLink>
                   
+
+                  <RouterLink to="/admin/clubPage">
                   <Box
                     maxW="sm"
                     borderWidth="1px"
@@ -498,11 +523,15 @@ const auth = getAuth();
                     m="2"
                   >
                     <Flex alignItems="center" mb="2">
-                      <FaEnvelope size={20} />
-                      <Text ml="2">Email</Text>
+                    <PiClub size={20}/>
+
+                      <Text ml="2">Club Admin</Text>
                     </Flex>
-                    {/* Add content here */}
+                    Create/Change Club Admin
                   </Box>
+                  </RouterLink>
+
+                  <RouterLink to="/admin/grievances" state={{identity: "admin"}}>
                   <Box
                     maxW="sm"
                     borderWidth="1px"
@@ -512,25 +541,14 @@ const auth = getAuth();
                     m="2"
                   >
                     <Flex alignItems="center" mb="2">
-                      <FaPhone size={20} />
-                      <Text ml="2">Phone</Text>
+                    <FaCrosshairs size={20}/>
+
+                      <Text ml="2">Grievances</Text>
                     </Flex>
-                    {/* Add content here */}
+                    Grievances from Students
                   </Box>
-                  <Box
-                    maxW="sm"
-                    borderWidth="1px"
-                    backgroundColor="#fff"
-                    borderRadius="lg"
-                    p="4"
-                    m="2"
-                  >
-                    <Flex alignItems="center" mb="2">
-                      <FaMapMarker size={20} />
-                      <Text ml="2">Location</Text>
-                    </Flex>
-                    {/* Add content here */}
-                  </Box>
+                  </RouterLink>
+                  
                 </Flex>
 
                 <VStack spacing={6} p={6}>
@@ -967,7 +985,7 @@ const auth = getAuth();
                   >
                     <Center mb="3">
                       <Text color="white" p="6" fontSize="3xl" as="b" mb="5vh">
-                        Topper Details Update Section
+                        Placements Update Section
                         <br />
                       </Text>
                     </Center>
@@ -997,7 +1015,7 @@ const auth = getAuth();
                       p="5"
                       boxShadow="lg"
                     >
-                      <Text>Add New Topper Details</Text>
+                      <Text>Add New Placed Student Details</Text>
                       <Box>
                         <Input
                           backgroundColor="#D8D9DA"
@@ -1005,29 +1023,29 @@ const auth = getAuth();
                           m="1"
                           p="1"
                           onChange={(e) => {
-                            setNewTopperImage(e.target.files[0]);
+                            setNewPlacedStudentImage(e.target.files[0]);
                           }}
                         />
                         <Input
                           m="1"
                           p="1"
                           placeholder="Enter name..."
-                          onChange={(e) => setNewTopperName(e.target.value)}
-                          value={newTopperName}
+                          onChange={(e) => setNewPlacedStudentName(e.target.value)}
+                          value={newPlacedStudentName}
                           type="text"
                         />
                         <Input
                           m="1"
                           p="1"
-                          type="number"
-                          placeholder="Enter percentage..."
-                          value={newTopperResult}
-                          onChange={(e) => setNewTopperResult(e.target.value)}
+                          type="text"
+                          placeholder="Company and package"
+                          value={newPlacedStudentResult}
+                          onChange={(e) => setNewPlacedStudentResult(e.target.value)}
                         ></Input>
                       </Box>
                       <Button
                         backgroundColor={"blue.300"}
-                        onClick={() => addTopper()}
+                        onClick={() => addPlacedStudent()}
                       >
                         Add
                       </Button>
@@ -1042,7 +1060,7 @@ const auth = getAuth();
                       ml={`${isMobileResponsive ? "" : "5"}`}
                       mt={`${isMobileResponsive ? "5" : ""}`}
                     >
-                      Toppers
+                      PlacedStudents
                       <Grid
                         className="scrollable-div"
                         templateColumns={"repeat(5, 1fr)"}
@@ -1067,7 +1085,7 @@ const auth = getAuth();
                                 <Button
                                   m="3"
                                   key={image.id}
-                                  onClick={(e) => deleteTopper(image.id)}
+                                  onClick={(e) => deletePlacedStudent(image.id)}
                                 >
                                   Delete
                                 </Button>
@@ -1084,7 +1102,7 @@ const auth = getAuth();
                   </Flex>
                 </VStack>
 
-                <VStack spacing={6} p={6}>
+                {/* <VStack spacing={6} p={6}>
                   <Box
                     m="2"
                     position="relative"
@@ -1114,7 +1132,7 @@ const auth = getAuth();
                         p="5"
                         boxShadow="lg"
                       >
-                        <Text>Add New Topper Details</Text>
+                        <Text>Add New PlacedStudent Details</Text>
                         <Box>
                           <Input
                             backgroundColor="#D8D9DA"
@@ -1122,15 +1140,15 @@ const auth = getAuth();
                             m="1"
                             p="1"
                             onChange={(e) => {
-                              setNewTopperImage12(e.target.files[0]);
+                              setNewPlacedStudentImage12(e.target.files[0]);
                             }}
                           />
                           <Input
                             m="1"
                             p="1"
                             placeholder="Enter name..."
-                            onChange={(e) => setNewTopperName12(e.target.value)}
-                            value={newTopperName12}
+                            onChange={(e) => setNewPlacedStudentName12(e.target.value)}
+                            value={newPlacedStudentName12}
                             type="text"
                           />
                           <Input
@@ -1138,15 +1156,15 @@ const auth = getAuth();
                             p="1"
                             type="number"
                             placeholder="Enter percentage..."
-                            value={newTopperResult12}
+                            value={newPlacedStudentResult12}
                             onChange={(e) =>
-                              setNewTopperResult12(e.target.value)
+                              setNewPlacedStudentResult12(e.target.value)
                             }
                           ></Input>
                         </Box>
                         <Button
                           backgroundColor={"blue.300"}
-                          onClick={() => addTopper12()}
+                          onClick={() => addPlacedStudent12()}
                         >
                           Add
                         </Button>
@@ -1161,7 +1179,7 @@ const auth = getAuth();
                         ml={`${isMobileResponsive ? "" : "5"}`}
                         mt={`${isMobileResponsive ? "5" : ""}`}
                       >
-                        Toppers
+                        PlacedStudents
                         <Grid
                           className="scrollable-div"
                           templateColumns={"repeat(5, 1fr)"}
@@ -1186,7 +1204,7 @@ const auth = getAuth();
                                   <Button
                                     m="3"
                                     key={image.id}
-                                    onClick={(e) => deleteTopper12(image.id)}
+                                    onClick={(e) => deletePlacedStudent12(image.id)}
                                   >
                                     Delete
                                   </Button>
@@ -1202,7 +1220,7 @@ const auth = getAuth();
                       </Box>
                     </Flex>
                   </Box>
-                </VStack>
+                </VStack> */}
               </Box>
             </Center>
           </Box>
@@ -1211,6 +1229,7 @@ const auth = getAuth();
         <Flex h="100vh" align="center" justify="center">
           <Text as="b" fontSize="2xl">
             Loading...
+            {navigate('/login')}
             <Navigate to="/login"></Navigate>
           </Text>
         </Flex>

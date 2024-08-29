@@ -66,7 +66,7 @@ const Navbar = () => {
             <img 
             className={`navbar-logo ${isNavbarCollapse 
             ? 'logo-collapse' : 'logo-expand'}`} 
-            src="./images/logo.png" 
+            src="./images/originalLogo.png" 
             alt="" />
           </Link>
       </div>
@@ -86,7 +86,7 @@ const Navbar = () => {
           className='schoolName'
           align='center'
           justifySelf='flex-start'>
-          <Text textAlign='left' as='b' fontSize='2xl'>ABC Public School</Text>
+          <Text textAlign='left' as='b' fontSize='2xl'>Student's Facilities Portal</Text>
           </Flex> 
           
             </>
@@ -111,29 +111,13 @@ const Navbar = () => {
                   <div className="nav-links School">
                     <Link to='/'>
                     <Text fontSize="lg" as="b">
-                      School
+                      Homepage
                     </Text>{" "}
                     </Link>
                   </div>
                   
                 </li>
                 
-
-                <li
-                  className={`nav-item ${isCampusHovered ? "hovered" : ""}`}
-                  onMouseEnter={() => setIsCampusHovered(true)}
-                  onMouseLeave={() => setIsCampusHovered(false)}
-                >
-                  <div className="nav-links Campus">
-                    <Link to='/principal'>
-                    <Text fontSize="lg" as="b">
-                      Principal's Desk
-                    </Text>{" "}
-                    </Link>
-                  </div>
-                  
-                </li>
-
                 <li>
                   <Flex className="nav-links Careers" align="center">
                     <Link to='/career'>
@@ -143,6 +127,22 @@ const Navbar = () => {
                     </Link>
                   </Flex>
                 </li>
+
+                <li
+                  className={`nav-item ${isCampusHovered ? "hovered" : ""}`}
+                  onMouseEnter={() => setIsCampusHovered(true)}
+                  onMouseLeave={() => setIsCampusHovered(false)}
+                >
+                  <div className="nav-links Campus">
+                    <Link to='/clubAdminLoginPage'>
+                    <Text fontSize="lg" as="b">
+                      Club Admin Login
+                    </Text>{" "}
+                    </Link>
+                  </div>
+                  
+                </li>
+
                 <li
                   className={`nav-item ${isCurriculumHovered ? "hovered" : ""}`}
                   onMouseEnter={() => setIsCurriculumHovered(true)}
@@ -151,14 +151,12 @@ const Navbar = () => {
                   <div className="nav-links Curriculum">
                     <Link to='/admin'>
                     <Text fontSize="lg" as="b">
-                      Admin
+                      Login/Signup
                     </Text>
                     </Link>{" "}
                   </div>
                  
                 </li>
-                
-                
               </ul>
             </div>
           )}

@@ -35,10 +35,23 @@ const StudentsPage = () =>{
           ...studentObject, 
           isApproved : true}
 
-        await addDocument(approvedStudentCollection, newStudentObject)
+          const customId = studentObject.id;
+
+          const docRef = doc(approvedStudentCollection, customId)
+        // await addDocument(approvedStudentCollection, newStudentObject)
+        await setDoc(docRef,
+        {
+          ...studentObject,
+          isApproved : true,
+        })
 
         await handleDeleteFromFireStore("notApprovedStudents", id)
 
+        fetchNewStudents()
+      }
+
+      const handleDismiss = async (id) =>{
+        await handleDeleteFromFireStore("notApprovedStudents", id)
         fetchNewStudents()
       }
 
@@ -81,6 +94,9 @@ const StudentsPage = () =>{
                     <Text><strong>Course:</strong> {student.course}</Text>
                     <Button onClick={()=> handleApproveStudent(student, student.id)}>
                         Approve
+                    </Button>
+                    <Button colorScheme="red" size="sm" onClick={() => handleDismiss(student.id)}>
+                    Dismiss
                     </Button>
                 </Flex>
                 

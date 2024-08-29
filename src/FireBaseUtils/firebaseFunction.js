@@ -1,5 +1,5 @@
 // firestoreUtils.js
-import { addDoc, getDocs, deleteDoc, doc, collection } from 'firebase/firestore';
+import { addDoc, getDocs, getDoc, deleteDoc, doc, collection } from 'firebase/firestore';
 import { db } from '../components/config/firebase-config';
 import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
@@ -53,3 +53,43 @@ export const handleResetPassword = async (email) =>{
     // ..
   });
 }
+
+const fetchCollection = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, "clubs"));
+    //   const admins = await studentDetailsByID
+      const result = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      
+      return result
+}
+ catch (error) {
+  console.error("Error fetching collection:", error);
+}
+}
+
+export const searchDocumentByID = async (collectionName,id) => {
+  try {
+    // Get the document reference for the student
+
+    const entityRef = doc(db, collectionName, id);
+
+    // Fetch the student document
+    const entityDoc = await getDoc(entityRef);
+
+    if (entityDoc.exists()) {
+      // Document exists, retrieve the data
+      const entity = { id: entityDoc.id, ...entityDoc.data() };
+      console.log(entity)
+      return entity
+    } else {
+      // Document does not exist
+      console.log('Student not found');
+      throw("No entity found")
+    }
+  } catch (error) {
+    console.error('Error fetching student details:', error);
+  }
+};

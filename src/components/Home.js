@@ -20,6 +20,8 @@ import {
   FormLabel,
   Input,
   Grid,
+  UnorderedList, 
+  ListItem,
 
 } from "@chakra-ui/react";
 import "./Home.css";
@@ -45,7 +47,6 @@ const Home = () => {
   ];
   const [news, setNews] = useState([]);
   const [toppersList, setToppersList] = useState([]);
-  const [toppersList12, setToppersList12] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
     admission: false,
@@ -102,8 +103,7 @@ const Home = () => {
     window.addEventListener("resize", handleResize);
   }, [window.innerWidth]);
 
-  const toppersCollectionRef = collection(db, "class10TopperImages");
-  const toppersCollectionRef12 = collection(db, "class12TopperImages");
+  const toppersCollectionRef = collection(db, "class10PlacedStudentImages");
 
   const getToppersList = async (toppers10Collection) => {
     try {
@@ -119,22 +119,9 @@ const Home = () => {
     }
   };
 
-  const getToppersList12 = async (toppers12Collection) => {
-    try {
-      const data = await getDocs(toppers12Collection);
-      const filteredData = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      console.log(filteredData);
-      setToppersList12(filteredData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  
   useEffect(() => {
     getToppersList(toppersCollectionRef);
-    getToppersList12(toppersCollectionRef12);
   }, []);
 
   const handleInputChange = (e) => {
@@ -190,7 +177,7 @@ const Home = () => {
             />
             <img
               className="carousel-image"
-              src="/images/carousel2.jpg"
+              src="/images/carousel4.jpg"
               alt=""
             />
           </Carousel>
@@ -199,12 +186,12 @@ const Home = () => {
           <div data-aos="fade-up" data-aos-delay='200' className="school-name">
             <Box>
             <Text fontSize="5xl" color="#A2FF86" as="b">
-               ABC Public School
+               Student Facility Web-App 
             </Text>
             <br />
-            <Text fontSize='2xl' color='white' as='b'>One of the best schools of Ranchi</Text>
+            <Text fontSize='2xl' color='white' as='b'>Join Clubs, Explore Alumni of your University.</Text>
             <br />
-            <Text fontSize='2xl' color='white' as='b'>Ranked at 2nd position for education </Text>
+            <Text fontSize='2xl' color='white' as='b'>Easily and Conveniently.</Text>
 
             </Box>
           </div>
@@ -247,7 +234,7 @@ const Home = () => {
 
             <Box maxW="600px" borderRadius="lg">
               <Text p="5" fontSize="4xl" fontWeight="bold">
-                Best School in Ranchi
+                Student Facilities At Ease
               </Text>
 
               <Text
@@ -256,15 +243,32 @@ const Home = () => {
                 fontSize="xl"
                 p="5"
               >
-                For excellence both in classroom and beyond gift your child an
-                opportunity to study in ABC School which
-                is the best Boarding School in Giridih, Jharkhand. This well
-                known English medium school in Jharkhand aims to train the
-                students to be future ready and equipped. The students are
-                exposed to experiential way of learning in order to keep them
-                abreast with real world scenario. Saluja Gold International
-                School, Giridih is a CBSE Board School in Jharkhand which
-                provides the most outstanding hostel facility.
+                Discover, Connect, and Engage with Our Web App:
+<br/> <br/>
+<UnorderedList styleType="disc">
+      <ListItem>
+        <Text as="b" fontSize="md">Club Joining</Text>: <Text fontSize="md">Explore and join various clubs catering to diverse interests.</Text>
+      </ListItem>
+      <ListItem>
+        <Text as="b" fontSize="md">Alumni Exploration</Text>: <Text fontSize="md">Connect with alumni for guidance and networking opportunities.</Text>
+      </ListItem>
+      <ListItem>
+        <Text as="b" fontSize="md">Grievance Lodging</Text>: <Text fontSize="md">Easily voice your concerns and feedback.</Text>
+      </ListItem>
+      <ListItem>
+        <Text as="b" fontSize="md">New Student Signup</Text>: <Text fontSize="md">Seamless signup process for new students.</Text>
+      </ListItem>
+      <ListItem>
+        <Text as="b" fontSize="md">Administration Management</Text>: <Text fontSize="md">Efficiently manage the app through dedicated admins.</Text>
+      </ListItem>
+      <ListItem>
+        <Text as="b" fontSize="md">Robust Notification Board</Text>: <Text fontSize="md">Stay informed with timely updates and announcements.</Text>
+      </ListItem>
+    </UnorderedList>
+    <Text fontSize="md">
+    Experience the convenience and empowerment of our web app today!
+
+    </Text>
               </Text>
             </Box>
           </Flex>
@@ -312,42 +316,34 @@ const Home = () => {
             </Center>
             <Flex align="center" justify="space-between" w="100%" p="5">
               <SimpleGrid minChildWidth="200px" spacing="5%">
-                <Card>
-                  <CardHeader>Green Campus</CardHeader>
+                <Card boxShadow="2xl">
+                  <CardHeader as='b' textAlign='center' fontSize="xl">Explore Alumni !</CardHeader>
                   <CardBody>
-                    In this era of concrete dominance, we aim at making children
-                    live in a natural and healthy environment. The school has a
-                    lush green campus which is essential for a pollution free
-                    surrounding for the children.
+                    Explore Alumni: Connect with former students who have graduated from our institution. 
+                    Use the search functionality to find specific alumni based on their name, company, or role in the company. 
+                    Click on any alumni to view their detailed profile and learn more about their journey since graduation.
                   </CardBody>
                 </Card>
-                <Card>
-                  <CardHeader>Boarding</CardHeader>
+                <Card boxShadow="2xl">
+                  <CardHeader as='b' textAlign='center' fontSize="xl">Join Clubs</CardHeader>
                   <CardBody>
-                    Experience a transformative boarding journey at Saluja Gold
-                    International School, known as the best boarding school in
-                    Giridih. With a perfect blend of academic excellence,
-                    holistic development, and a nurturing environment, we ensure
-                    the all-round growth and success of our students.
+                  Dive into a vibrant community of student organizations covering a wide range of interests and passions. 
+                  Engage in events, discussions, and collaborations with fellow members. 
+                  Joining clubs is a great way to explore your interests, build connections, and enhance your college experience.
                   </CardBody>
                 </Card>
-                <Card>
-                  <CardHeader>Science Lab</CardHeader>
+                <Card boxShadow="2xl">
+                  <CardHeader as='b' textAlign='center' fontSize="xl">Grievance Lodging</CardHeader>
                   <CardBody>
-                    Saluja Gold International School in Giridih is equipped with
-                    multiple state-of-the-art laboratories to provide students
-                    with hands-on learning experiences and foster their
-                    curiosity and scientific inquiry. Here are some of the
-                    exceptional labs available:
+                  Your voice matters! Lodge complaints, suggestions, or grievances through this platform to ensure your concerns are heard and addressed. 
+                  Provide detailed descriptions of issues you encounter, suggestions for improvement, or any feedback you wish to convey to the relevant authorities. 
                   </CardBody>
                 </Card>
-                <Card>
-                  <CardHeader>Sweat-it-out Zone</CardHeader>
+                <Card boxShadow="2xl">
+                  <CardHeader as='b' textAlign='center' fontSize="xl">Dynamic Notice Board</CardHeader>
                   <CardBody>
-                    The school boasts of a huge complex for various sports
-                    activity where we offer a range of indoor and outdoor games,
-                    like football, cricket, badminton, basketball, volleyball,
-                    chess, and table tennis.
+                  Stay informed and up-to-date with the latest announcements, updates, and important information from administrators and club officials. 
+                  This dynamic platform fetches notices from both administrative sources and club administrators, ensuring you never miss any essential communication. 
                   </CardBody>
                 </Card>
               </SimpleGrid>
@@ -371,7 +367,7 @@ const Home = () => {
             fontSize="xl" p='3'
           >
             <Text mb="9" fontSize="4xl" as="b">
-              Our Toppers
+              Our Placed Students
               <Divider
                 data-aos="fade-up"
                 size="3"
@@ -380,16 +376,9 @@ const Home = () => {
               />
             </Text>
             <Text >
-              We proudly celebrate the remarkable achievements of our school's
-              top performers. Each student's dedication and hard work have
-              culminated in outstanding academic success, setting an inspiring
-              example for their peers. These achievements underscore our
-              commitment to fostering holistic growth and learning excellence.
-              Congratulations to all our brilliant students for their
-              accomplishments. Your perseverance and commitment fuel our
-              school's pride and reinforce the value of diligence in education.
-              As you continue to strive for greatness, remember that your
-              potential knows no bounds.
+            Celebrating the success stories of our graduates, 
+            this section highlights the achievements of students who have secured employment opportunities after completing their studies at our university. Discover inspiring journeys, learn about career paths, and explore the diverse range of industries where our alumni have made their mark. 
+            From internships to full-time positions, this section showcases the tangible outcomes of our commitment to student success and career readiness.
             </Text>
           </Flex>
           <Flex w={`${isMobileResponsive ? '100vw' : '40vw'}`} flexDir="column" align="center" justify="center">
@@ -423,7 +412,7 @@ const Home = () => {
                           color="white"
                           position="relative"
                         >
-                          {topper.result}%
+                          {topper.result}
                         </Text>
                       </Box>
                     </div>
@@ -436,7 +425,8 @@ const Home = () => {
                 Class 10th (Matriculation)
               </Text>
             </Box>
-            <Box
+
+            {/* <Box
               mt="5"
               className="carousel2"
               width={`${isMobileResponsive ? "90vw" : "40vw"}`}
@@ -478,14 +468,14 @@ const Home = () => {
               </Carousel2>
 
               <Text as="b">Class 12th (Intermediate)</Text>
-            </Box>
+            </Box> */}
           </Flex>
         </Box>
         <Box mt='20vh'
         mb='10vh'
         position='relative'>
           <Text as='b' fontSize='3xl'>
-            School Gallery
+            College Gallery
             <Divider
             data-aos="fade-right"
             size="3"
